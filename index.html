@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frostella — Every Scoop, Pure Happiness. ⭐</title>
+  <meta name="description" content="Indulge in premium, artisanal ice cream crafted with real ingredients. Experience Frostella's signature flavours and custom scoop builders.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF6F0',
+            cocoa: '#2A1A17',
+            pink: '#FCEBF3',
+            mango: '#FCF2D9',
+            pistachio: '#EBF5EE',
+            accent: '#FF3E6C',
+            accentHover: '#E02854',
+            darkBg: '#0F0A09',
+            gold: '#D4AF37',
+            goldLight: '#E5C583'
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-cream text-cocoa selection:bg-accent selection:text-cream relative min-h-screen">
+
+  <!-- Noise Overlay for Texture -->
+  <div class="noise-overlay fixed inset-0 opacity-[0.03]"></div>
+
+  <!-- Custom Gooey Cursor Container -->
+  <div class="custom-cursor-container">
+    <div class="cursor-dot"></div>
+  </div>
+
+  <!-- SVG Gooey Filter Definitions -->
+  <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo-filter">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 w-full z-50 glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 group hover-trigger" data-cursor-text="Home">
+        <svg class="w-8 h-8 text-accent fill-current transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V20c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+          <circle cx="12" cy="9" r="2"/>
+        </svg>
+        <span class="text-2xl font-serif font-black tracking-tight text-cocoa">Frostella</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-10 font-medium">
+        <a href="index.html" class="text-accent hover:text-accent transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:height-[2px] after:bg-accent hover-trigger">Home</a>
+        <a href="about.html" class="hover:text-accent transition-colors hover-trigger">About Us</a>
+        <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Contact</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="hidden md:block">
+        <a href="contact.html" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent text-white font-bold transition-all duration-300 hover:bg-accentHover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 hover-trigger" data-cursor-text="Find Parlours">
+          Find A Parlour
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="menu-btn" class="md:hidden flex flex-col justify-between w-6 h-5 focus:outline-none hover-trigger z-50">
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300 origin-center"></span>
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300"></span>
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300 origin-center"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Fullscreen Menu -->
+  <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-cream z-40 flex flex-col justify-center items-center gap-8 translate-y-[-100%] opacity-0 pointer-events-none transition-all">
+    <a href="index.html" class="text-4xl font-serif font-bold text-accent">Home</a>
+    <a href="about.html" class="text-4xl font-serif font-bold hover:text-accent transition-colors">About Us</a>
+    <a href="contact.html" class="text-4xl font-serif font-bold hover:text-accent transition-colors">Contact</a>
+    <a href="contact.html" class="mt-4 px-8 py-4 rounded-full bg-accent text-white text-lg font-bold shadow-md hover:bg-accentHover">Find A Parlour</a>
+  </div>
+
+  <!-- Main Hero Section -->
+  <section class="hero-section min-h-screen pt-20 flex flex-col items-center justify-between relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 w-full flex-grow flex flex-col lg:flex-row items-center justify-center gap-12 relative z-10 py-16">
+      
+      <!-- Headline & Left Content -->
+      <div class="flex-1 text-center lg:text-left">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-pink text-accent font-bold text-xs uppercase tracking-wider mb-6 animate-pulse">
+          Crafted with Love & Pastry Art
+        </span>
+        <h1 id="hero-headline" class="text-5xl md:text-7xl font-black font-serif text-cocoa leading-[1.1] mb-6">
+          Every Scoop, <br>
+          <span class="text-accent">Pure Happiness. ⭐</span>
+        </h1>
+        <p class="text-lg md:text-xl text-cocoa/80 max-w-xl mb-10 mx-auto lg:mx-0">
+          Welcome to Frostella, where our secret family recipes turn organic dairy and real seasonal ingredients into delicious ice cream magic.
+        </p>
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+          <a href="#build-scoop" class="px-8 py-4 rounded-full bg-accent text-white font-black shadow-lg hover:bg-accentHover hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 hover-trigger" data-cursor-text="Mix it!">
+            Build Your Scoop
+          </a>
+          <a href="#flavours" class="px-8 py-4 rounded-full border-2 border-cocoa/20 text-cocoa font-bold hover:bg-cocoa/5 hover:border-cocoa transition-all duration-300 hover-trigger">
+            Explore Flavours
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Masked Melter Image -->
+      <div class="flex-1 w-full flex justify-center items-center relative">
+        <div class="absolute -top-12 -left-12 w-32 h-32 bg-pink/40 rounded-full blur-3xl -z-10 animate-blob"></div>
+        <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-mango/40 rounded-full blur-3xl -z-10 animate-blob animation-delay-2000"></div>
+        
+        <!-- Masked Hero Image Container -->
+        <div class="hero-image-wrapper w-[300px] h-[300px] md:w-[450px] md:h-[450px] relative overflow-hidden transition-slow" style="clip-path: inset(10% 15% 10% 15% round 150px 150px 100px 100px);">
+          <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=1200&auto=format&fit=crop" 
+               alt="Gourmet Ice Cream Scoop" 
+               class="w-full h-full object-cover scale-105">
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <div class="pb-8 flex flex-col items-center gap-2 relative z-10">
+      <span class="text-xs font-semibold tracking-widest text-cocoa/50 uppercase">Scroll to Discover</span>
+      <div class="w-[2px] h-10 bg-cocoa/20 rounded-full overflow-hidden">
+        <div class="w-full h-1/2 bg-accent rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flavour Showcase (Bento Grid) -->
+  <section id="flavours" class="py-24 max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-4xl md:text-5xl font-black font-serif text-cocoa leading-tight mb-4 reveal-item">
+        Our Signature Flavours
+      </h2>
+      <p class="text-cocoa/70 reveal-item">
+        Every tub of Frostella is churned using single-origin milk, fresh natural fruits, and premium toppings. Explore our fan favorites.
+      </p>
+    </div>
+
+    <!-- Bento Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      
+      <!-- Card 1: Belgian Chocolate (Large) -->
+      <div class="bento-card md:col-span-2 md:row-span-2 rounded-3xl bg-cocoa text-cream p-8 flex flex-col justify-between min-h-[400px] group hover:scale-[1.02] hover:shadow-xl transition-all duration-500 hover-trigger" data-flavour="chocolate">
+        <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-50 group-hover:opacity-75 transition-opacity duration-500">
+          <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=800&auto=format&fit=crop" alt="Belgian Chocolate Ice Cream" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="relative z-10">
+          <span class="px-3 py-1 rounded-full bg-cream/20 text-cream text-xs font-bold uppercase tracking-wider">Best Seller</span>
+        </div>
+        <div class="relative z-10 mt-auto">
+          <h3 class="text-3xl font-black font-serif mb-2">Belgian Chocolate</h3>
+          <p class="text-sm text-cream/80 max-w-sm mb-4">Rich, dark chocolate churned with Venezuelan cocoa nibs and velvet fudge swirls.</p>
+          <span class="inline-flex items-center gap-1 text-sm font-bold text-accent group-hover:text-pink transition-colors">
+            Learn More
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 2: Strawberry Dream -->
+      <div class="bento-card md:col-span-2 rounded-3xl bg-pink p-8 flex flex-col justify-between min-h-[220px] group hover:scale-[1.02] hover:shadow-xl transition-all duration-500 hover-trigger" data-flavour="strawberry">
+        <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?q=80&w=800&auto=format&fit=crop" alt="Strawberry Ice Cream" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="relative z-10 flex justify-between items-start">
+          <span class="px-3 py-1 rounded-full bg-accent/15 text-accent text-xs font-bold uppercase tracking-wider">Fresh & Fruit</span>
+          <span class="text-3xl">🍓</span>
+        </div>
+        <div class="relative z-10 mt-auto">
+          <h3 class="text-2xl font-black font-serif text-cocoa">Strawberry Dream</h3>
+          <p class="text-sm text-cocoa/70 max-w-md">Sweet Handpicked strawberries paired with organic local cream.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Pistachio Perfection (Tall) -->
+      <div class="bento-card md:col-span-1 md:row-span-2 rounded-3xl bg-pistachio p-6 flex flex-col justify-between min-h-[400px] group hover:scale-[1.02] hover:shadow-xl transition-all duration-500 hover-trigger" data-flavour="pistachio">
+        <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+          <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553ad?q=80&w=800&auto=format&fit=crop" alt="Pistachio Ice Cream" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="relative z-10">
+          <span class="text-3xl">🍃</span>
+        </div>
+        <div class="relative z-10 mt-auto">
+          <span class="text-xs text-accent font-black uppercase tracking-widest mb-1 block">Artisanal</span>
+          <h3 class="text-xl font-black font-serif text-cocoa mb-2">Pistachio Perfection</h3>
+          <p class="text-xs text-cocoa/70">Roasted Sicilian pistachios crushed into smooth pistachio cream butter.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Cookies & Cream -->
+      <div class="bento-card md:col-span-1 rounded-3xl bg-white p-6 flex flex-col justify-between min-h-[220px] border border-cocoa/5 group hover:scale-[1.02] hover:shadow-xl transition-all duration-500 hover-trigger" data-flavour="cookies">
+        <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800&auto=format&fit=crop" alt="Cookies and Cream" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="relative z-10">
+          <span class="text-3xl">🍪</span>
+        </div>
+        <div class="relative z-10 mt-auto">
+          <h3 class="text-xl font-black font-serif text-cocoa">Cookies & Cream</h3>
+          <p class="text-xs text-cocoa/70">Double-chocolate biscuits hand-folded into classic vanilla bean.</p>
+        </div>
+      </div>
+
+      <!-- Card 5: Mango Sunshine -->
+      <div class="bento-card md:col-span-2 rounded-3xl bg-mango p-8 flex flex-col justify-between min-h-[220px] group hover:scale-[1.02] hover:shadow-xl transition-all duration-500 hover-trigger" data-flavour="mango">
+        <div class="absolute inset-0 z-0 overflow-hidden rounded-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+          <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop" alt="Mango Ice Cream" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+        </div>
+        <div class="relative z-10 flex justify-between items-start">
+          <span class="px-3 py-1 rounded-full bg-cocoa/10 text-cocoa text-xs font-bold uppercase tracking-wider">Seasonal Special</span>
+          <span class="text-3xl">🥭</span>
+        </div>
+        <div class="relative z-10 mt-auto">
+          <h3 class="text-2xl font-black font-serif text-cocoa">Mango Alphonso</h3>
+          <p class="text-sm text-cocoa/70 max-w-sm">Sun-ripened Alphonso mango pulp blended with rich fresh cream.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive "Build Your Scoop" Tool -->
+  <section id="build-scoop" class="py-24 bg-pink/35 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      
+      <!-- Interactive Visualizer (Left) -->
+      <div class="lg:col-span-6 flex flex-col items-center justify-center relative min-h-[400px]">
+        <!-- Confetti/Splash Canvas / Overlay -->
+        <div id="particle-canvas-container" class="absolute inset-0 pointer-events-none z-20"></div>
+
+        <!-- Cone & Scoop Display -->
+        <div class="w-full max-w-[320px] h-[380px] relative flex flex-col items-center justify-end">
+          
+          <!-- Ice Cream Scoop Container with shadow, active crossfade layers, toppings layer, and masked sauce layer -->
+          <div id="visual-scoop-container" class="w-[150px] h-[150px] absolute bottom-[130px] z-10 transition-all duration-500 scale-0 origin-bottom transform">
+            <!-- Scoop Drop Shadow (for realistic depth) -->
+            <div class="absolute inset-x-2 bottom-[-8px] h-4 bg-cocoa/30 rounded-full blur-[6px]"></div>
+            
+            <!-- Scoop Layer 1 (Active) -->
+            <div id="scoop-layer-1" class="absolute inset-0 rounded-full transition-opacity duration-300 opacity-0 overflow-hidden shadow-[inset_-8px_-8px_20px_rgba(0,0,0,0.15),_inset_8px_8px_20px_rgba(255,255,255,0.6)]">
+              <!-- Glistening shine highlight -->
+              <div class="absolute top-[12%] left-[12%] w-[25%] h-[25%] rounded-full bg-white/50 blur-[1.5px]"></div>
+            </div>
+
+            <!-- Scoop Layer 2 (Crossfade target) -->
+            <div id="scoop-layer-2" class="absolute inset-0 rounded-full transition-opacity duration-300 opacity-0 overflow-hidden shadow-[inset_-8px_-8px_20px_rgba(0,0,0,0.15),_inset_8px_8px_20px_rgba(255,255,255,0.6)]">
+              <!-- Glistening shine highlight -->
+              <div class="absolute top-[12%] left-[12%] w-[25%] h-[25%] rounded-full bg-white/50 blur-[1.5px]"></div>
+            </div>
+
+            <!-- Topping Layer (sprinkles, chips, berries pop-in here) -->
+            <div id="visual-topping-layer" class="absolute inset-0 z-20 pointer-events-none"></div>
+
+            <!-- Sauce Layer (dripping masked inside the scoop outline) -->
+            <div id="visual-sauce-layer" class="absolute inset-0 z-30 pointer-events-none overflow-hidden rounded-full opacity-0 scale-y-0 origin-top">
+              <svg class="w-full h-[65px] fill-current" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Gooey melting drip path -->
+                <path d="M 0,0 L 0,35 Q 10,55 20,40 Q 30,65 40,45 Q 50,55 60,35 Q 70,60 80,45 Q 90,55 100,35 L 100,0 Z" />
+              </svg>
+            </div>
+            
+            <div class="absolute bottom-2 right-4 text-white/30 text-[10px] font-serif font-black tracking-widest uppercase select-none opacity-40 z-40">Frostella</div>
+          </div>
+
+          <!-- Waffle Cone (3D Gradient Shaded & Textured Cone) -->
+          <div class="w-[120px] h-[160px] relative z-0">
+            <svg viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-lg">
+              <defs>
+                <!-- 3D Cylindrical Shader for Waffle Cone -->
+                <linearGradient id="cone-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#A47348" />
+                  <stop offset="40%" stop-color="#D8A273" />
+                  <stop offset="75%" stop-color="#E8B98F" />
+                  <stop offset="100%" stop-color="#B88457" />
+                </linearGradient>
+              </defs>
+              <!-- Hollow shadow interior at mouth -->
+              <ellipse cx="50" cy="10" rx="40" ry="7" fill="#8C5326" opacity="0.85" />
+              <!-- Shaded Cone shape with Curved Top Rim -->
+              <path d="M 10 10 Q 50 20 90 10 L 50 145 Z" fill="url(#cone-grad)" />
+              <!-- Embossed Waffle Crosslines: dark indentation layer -->
+              <path d="M 22 25 L 78 105 M 34 25 L 66 85 M 46 25 L 56 60 M 78 25 L 22 105 M 66 25 L 34 85 M 54 25 L 44 60" stroke="#83522C" stroke-width="3.5" opacity="0.8" />
+              <!-- Embossed Waffle Crosslines: light reflection layer offset by 1px -->
+              <path d="M 23 26 L 79 106 M 35 26 L 67 86 M 47 26 L 57 61 M 79 26 L 23 106 M 67 26 L 35 86 M 55 26 L 45 61" stroke="#FFE9D6" stroke-width="1.8" opacity="0.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls & Steps (Right) -->
+      <div class="lg:col-span-6 flex flex-col justify-center">
+        <span class="text-xs font-black tracking-widest text-accent uppercase mb-2">Interactive Lab</span>
+        <h2 class="text-4xl md:text-5xl font-black font-serif text-cocoa mb-6 leading-tight">
+          Build Your Vibe Scoop
+        </h2>
+        
+        <!-- Dynamic Steps Progress Indicator -->
+        <div class="flex gap-4 mb-8">
+          <div class="step-indicator flex-1 h-[4px] rounded-full bg-accent" id="step-1-bar"></div>
+          <div class="step-indicator flex-1 h-[4px] rounded-full bg-cocoa/10" id="step-2-bar"></div>
+          <div class="step-indicator flex-1 h-[4px] rounded-full bg-cocoa/10" id="step-3-bar"></div>
+        </div>
+
+        <!-- STAGE 1: Pick Flavour -->
+        <div id="widget-stage-1" class="widget-stage">
+          <h3 class="text-xl font-bold mb-4 font-serif text-cocoa">Step 1: Choose Flavour</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <button class="flavour-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color-light="#FFFDF9" data-color-base="#FAF0E6" data-color-dark="#EAD5C3" data-label="Creamy Vanilla" data-vibe="Pure Joy">
+              <span class="w-8 h-8 rounded-full bg-[#FAF0E6] border border-cocoa/10"></span>
+              <span class="font-bold text-sm">Vanilla</span>
+            </button>
+            <button class="flavour-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color-light="#8B5A2B" data-color-base="#4A2C1D" data-color-dark="#2E160A" data-label="Belgian Chocolate" data-vibe="Chaos Master">
+              <span class="w-8 h-8 rounded-full bg-[#4A2C1D]"></span>
+              <span class="font-bold text-sm">Chocolate</span>
+            </button>
+            <button class="flavour-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color-light="#FFD6E0" data-color-base="#FFA5BC" data-color-dark="#E06D8A" data-label="Strawberry Dream" data-vibe="Romantic Lover">
+              <span class="w-8 h-8 rounded-full bg-[#FFA5BC]"></span>
+              <span class="font-bold text-sm">Strawberry</span>
+            </button>
+            <button class="flavour-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color-light="#FFE9A6" data-color-base="#FFAE19" data-color-dark="#D98300" data-label="Mango Alphonso" data-vibe="Sunshine Seeker">
+              <span class="w-8 h-8 rounded-full bg-[#FFAE19]"></span>
+              <span class="font-bold text-sm">Mango</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STAGE 2: Add Toppings (Hidden Initially) -->
+        <div id="widget-stage-2" class="widget-stage hidden">
+          <h3 class="text-xl font-bold mb-4 font-serif text-cocoa">Step 2: Toss Toppings</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <button class="topping-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-type="sprinkles" data-label="Rainbow Sprinkles">
+              <span class="text-xl">🌈</span>
+              <span class="font-bold text-sm">Sprinkles</span>
+            </button>
+            <button class="topping-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-type="chips" data-label="Dark Choco Chips">
+              <span class="text-xl">🍫</span>
+              <span class="font-bold text-sm">Choco Chips</span>
+            </button>
+            <button class="topping-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-type="berries" data-label="Fresh Berries">
+              <span class="text-xl">🍓</span>
+              <span class="font-bold text-sm">Fresh Berries</span>
+            </button>
+            <button class="topping-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-type="none" data-label="No Toppings">
+              <span class="text-xl">❌</span>
+              <span class="font-bold text-sm">Keep it Clean</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STAGE 3: Select Sauce (Hidden Initially) -->
+        <div id="widget-stage-3" class="widget-stage hidden">
+          <h3 class="text-xl font-bold mb-4 font-serif text-cocoa">Step 3: Drizzle Sauce</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <button class="sauce-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color="#3A1D11" data-label="Warm Fudge">
+              <span class="text-xl">🤎</span>
+              <span class="font-bold text-sm">Warm Fudge</span>
+            </button>
+            <button class="sauce-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color="#D37E3A" data-label="Salted Caramel">
+              <span class="text-xl">💛</span>
+              <span class="font-bold text-sm">Salted Caramel</span>
+            </button>
+            <button class="sauce-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color="#E2244E" data-label="Strawberry Glaze">
+              <span class="text-xl">❤️</span>
+              <span class="font-bold text-sm">Strawberry Glaze</span>
+            </button>
+            <button class="sauce-select-btn p-4 rounded-2xl bg-white border-2 border-transparent text-left hover:border-accent transition-all duration-300 flex items-center gap-3 hover-trigger" data-color="transparent" data-label="No Sauce">
+              <span class="text-xl">❌</span>
+              <span class="font-bold text-sm">No Sauce</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- RESULT CARD (Hidden Initially) -->
+        <div id="widget-result" class="widget-stage hidden bg-white p-6 rounded-3xl shadow-xl border border-cocoa/5 text-center flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-pink flex items-center justify-center text-accent text-xl mb-4 font-bold">✨</div>
+          <span class="text-xs font-bold text-accent uppercase tracking-wider mb-1">Your Flavor Profile</span>
+          <h3 id="result-profile-name" class="text-2xl font-black font-serif text-cocoa mb-2">Chocolate Chaos</h3>
+          <p id="result-description" class="text-sm text-cocoa/70 max-w-sm mb-6">Belgian Chocolate scoop topped with Rainbow Sprinkles and Warm Fudge drizzle.</p>
+          
+          <div class="flex gap-4 w-full">
+            <button id="copy-vibe-btn" class="flex-1 py-3 px-4 rounded-full border-2 border-cocoa text-cocoa font-bold hover:bg-cocoa/5 transition-all text-sm hover-trigger" data-cursor-text="Copy Link">
+              Copy Recipe
+            </button>
+            <button id="reset-vibe-btn" class="flex-1 py-3 px-4 rounded-full bg-accent text-white font-bold hover:bg-accentHover transition-all text-sm hover-trigger" data-cursor-text="Start Over">
+              Re-create
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons (Inside Controls container) -->
+        <div class="flex justify-between items-center mt-8 pt-6 border-t border-cocoa/10" id="widget-nav-group">
+          <button id="widget-back-btn" class="px-6 py-2.5 rounded-full border border-cocoa/10 hover:border-cocoa text-cocoa font-bold text-sm opacity-50 cursor-not-allowed transition-all hover-trigger" disabled>
+            Back
+          </button>
+          <button id="widget-next-btn" class="px-8 py-3 rounded-full bg-cocoa text-cream hover:bg-accent hover:text-white font-bold text-sm transition-all hover-trigger" disabled>
+            Next Step
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Brand Story Teaser (Scrollytelling) -->
+  <section class="py-24 max-w-7xl mx-auto px-6 relative z-10 story-scrolly-section">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Pinned Visual Side (Left) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28 w-full flex justify-center items-center h-[350px] lg:h-[500px]">
+        <div class="relative w-full max-w-[360px] aspect-square bg-mango rounded-full overflow-hidden flex items-center justify-center shadow-lg group">
+          <!-- Central dynamic logo or image rotating slowly (20s spin) -->
+          <div class="absolute inset-4 border-[2px] border-dashed border-cocoa/10 rounded-full animate-[spin_20s_linear_infinite]"></div>
+          
+          <!-- Vector Scoop Graphics that swap dynamically on scroll -->
+          <div class="relative w-48 h-48 flex items-center justify-center">
+            <!-- Glow shadow layer for visual depth -->
+            <div class="absolute w-36 h-36 rounded-full bg-cream/70 blur-2xl opacity-90 -z-10 shadow-[0_10px_30px_rgba(42,26,23,0.15)]"></div>
+
+            <!-- Icon 1: Milk Drop for "Single-Origin Organic Milk" (Unique elegant line illustration) -->
+            <svg id="story-icon-1" class="absolute w-36 h-36 text-cocoa fill-none stroke-current transition-all duration-700" viewBox="0 0 100 100" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50,15 C50,15 80,48 80,65 C80,81.5 66.5,90 50,90 C33.5,90 20,81.5 20,65 C20,48 50,15 50,15 Z" />
+              <path d="M36,66 C36,73.5 41.5,78 48.5,78" opacity="0.65" stroke-width="1.5" />
+              <path d="M26,93 Q50,88 74,93" stroke-width="1.0" opacity="0.35" />
+            </svg>
+
+            <!-- Icon 2: Cocoa Pod & Vanilla Pods for "Madagascar Bourbon Vanilla & Fine Cocoa" -->
+            <svg id="story-icon-2" class="absolute w-36 h-36 text-cocoa fill-none stroke-current transition-all duration-700 opacity-0 transform scale-50" viewBox="0 0 100 100" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <!-- Vanilla pods -->
+              <path d="M30,22 C48,40 68,26 86,76" />
+              <path d="M24,30 C42,48 56,38 74,82" opacity="0.5" stroke-width="1.5" />
+              <!-- Cocoa pod body -->
+              <path d="M32,68 C20,59 18,36 34,26 C50,16 62,31 52,58 C44,80 36,76 32,68 Z" />
+              <!-- Inner lines of cocoa pod -->
+              <path d="M24,47 C32,44 40,41 46,32" stroke-width="1.5" opacity="0.7" />
+              <path d="M27,56 C34,51 40,46 43,39" stroke-width="1.5" opacity="0.7" />
+            </svg>
+
+            <!-- Icon 3: Cradling hands holding Waffle cone/Scoop for "Hand-Crafted in Small Batches" -->
+            <svg id="story-icon-3" class="absolute w-36 h-36 text-cocoa fill-none stroke-current transition-all duration-700 opacity-0 transform scale-50" viewBox="0 0 100 100" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <!-- Left hand -->
+              <path d="M18,63 Q30,68 38,60 T48,53" />
+              <path d="M18,63 C18,72 26,79 38,77 C48,75 62,68 70,55" />
+              <!-- Right hand -->
+              <path d="M82,63 Q70,68 62,60 T52,53" />
+              <path d="M82,63 C82,72 74,79 62,77 C52,75 38,68 30,55" opacity="0.7" />
+              <!-- Scoop of ice cream -->
+              <circle cx="50" cy="38" r="20" />
+              <path d="M42,27 C45,25 48,24 52,25" stroke-width="1.5" />
+              <!-- Waffle Cone -->
+              <path d="M36,52 L50,82 L64,52 Z" stroke-width="1.8" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Text Side (Right) -->
+      <div class="lg:col-span-7 flex flex-col gap-32 lg:py-24">
+        
+        <!-- Story Beat 1 -->
+        <div class="story-beat flex flex-col gap-4" data-index="1">
+          <span class="text-xs font-bold text-accent tracking-widest uppercase">Ingredient Focus — Part 01</span>
+          <h3 class="text-3xl md:text-4xl font-black font-serif text-cocoa leading-tight">
+            Single-Origin Organic Milk
+          </h3>
+          <p class="text-base text-cocoa/75 leading-relaxed max-w-xl">
+            We partner with local dairy farms that prioritize animal welfare and organic pastures. No hormones, no preservatives—just rich, natural cream churned to perfection.
+          </p>
+        </div>
+
+        <!-- Story Beat 2 -->
+        <div class="story-beat flex flex-col gap-4" data-index="2">
+          <span class="text-xs font-bold text-accent tracking-widest uppercase">Ingredient Focus — Part 02</span>
+          <h3 class="text-3xl md:text-4xl font-black font-serif text-cocoa leading-tight">
+            Madagascar Bourbon Vanilla & Fine Cocoa
+          </h3>
+          <p class="text-base text-cocoa/75 leading-relaxed max-w-xl">
+            We travel the globe to import the highest grade ingredients. Real Bourbon vanilla beans hand-seeded in Madagascar, and Venezuelan single-estate cacao beans ground locally.
+          </p>
+        </div>
+
+        <!-- Story Beat 3 -->
+        <div class="story-beat flex flex-col gap-4" data-index="3">
+          <span class="text-xs font-bold text-accent tracking-widest uppercase">Ingredient Focus — Part 03</span>
+          <h3 class="text-3xl md:text-4xl font-black font-serif text-cocoa leading-tight">
+            Hand-Crafted in Small Batches
+          </h3>
+          <p class="text-base text-cocoa/75 leading-relaxed max-w-xl">
+            To maintain premium density and creamy texture, our gelatieri prepare every flavour in micro-batches under 50 liters. It is a slow, loving process you can taste in every single spoonful.
+          </p>
+          <a href="about.html" class="inline-flex items-center gap-2 text-accent font-bold mt-4 hover:underline hover-trigger">
+            Read Our Full Story
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Super Premium Dark Section -->
+  <section class="py-24 bg-darkBg text-cream relative overflow-hidden dark">
+    <!-- SVG noise background wrapper -->
+    <div class="noise-overlay fixed inset-0 opacity-[0.03] z-0"></div>
+
+    <!-- Background Sparkles -->
+    <div class="absolute top-1/4 left-1/5 text-gold/30 text-2xl sparkle-element" style="animation-delay: 0.5s;">✦</div>
+    <div class="absolute top-3/4 left-10 text-gold/20 text-3xl sparkle-element" style="animation-delay: 1.5s;">✦</div>
+    <div class="absolute top-1/3 right-1/4 text-gold/40 text-xl sparkle-element" style="animation-delay: 0s;">✦</div>
+    <div class="absolute bottom-1/4 right-10 text-gold/30 text-4xl sparkle-element" style="animation-delay: 2.2s;">✦</div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-20">
+        <span class="text-xs font-bold text-gold tracking-widest uppercase block mb-3">Ultra Luxe Edition</span>
+        <h2 class="text-4xl md:text-6xl font-black font-serif text-cream leading-tight mb-4">
+          The Reserve Line
+        </h2>
+        <p class="text-goldLight/70">
+          Our master artisans introduce limited-run gastronomic masterpieces. Reserved only for the true connoisseur.
+        </p>
+      </div>
+
+      <!-- Luxury Products Display -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        
+        <!-- Premium Product 1 -->
+        <div class="flex flex-col md:flex-row gap-6 items-center group p-6 rounded-3xl border border-gold/10 hover:border-gold/30 bg-[#16100F] transition-all duration-500 hover-trigger">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-gold/20 shrink-0">
+            <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=400&auto=format&fit=crop" alt="Reserve Saffron Honey" class="w-full h-full object-cover scale-100 group-hover:scale-115 transition-transform duration-700">
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-gold tracking-widest uppercase mb-1 block">Reserve 01</span>
+            <h3 class="text-2xl font-black font-serif text-goldLight mb-2">Golden Honey Saffron</h3>
+            <p class="text-xs text-cream/70 leading-relaxed mb-4">Kashmiri saffron threads infused with organic wild honeycomb honey and edible gold leaf shavings.</p>
+            <span class="text-sm font-bold text-gold">$14.00 / Scoop</span>
+          </div>
+        </div>
+
+        <!-- Premium Product 2 -->
+        <div class="flex flex-col md:flex-row gap-6 items-center group p-6 rounded-3xl border border-gold/10 hover:border-gold/30 bg-[#16100F] transition-all duration-500 hover-trigger">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-gold/20 shrink-0">
+            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=400&auto=format&fit=crop" alt="Reserve Black Truffle Fudge" class="w-full h-full object-cover scale-100 group-hover:scale-115 transition-transform duration-700">
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-gold tracking-widest uppercase mb-1 block">Reserve 02</span>
+            <h3 class="text-2xl font-black font-serif text-goldLight mb-2">Truffle Dark Cocoa</h3>
+            <p class="text-xs text-cream/70 leading-relaxed mb-4">80% Venezuelan single-estate cocoa folded with real shaved Italian black winter truffle paste.</p>
+            <span class="text-sm font-bold text-gold">$16.50 / Scoop</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Auto-scrolling Marquee -->
+  <section class="py-16 bg-cream border-y border-cocoa/10 overflow-hidden relative z-10">
+    <div class="animate-marquee gap-8">
+      
+      <!-- Review 1 -->
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“The single best chocolate ice cream in the city. Incredible texture!”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Radhika M.</span>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“Building a custom scoop online is so fun! The children love the mango combo.”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Sameer S.</span>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“Truffle Cocoa Reserve is a literal masterpiece. Tastes incredibly expensive!”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Vikram K.</span>
+        </div>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“So creamy, organic, and not overly sweet. Highly recommended!”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Alice W.</span>
+        </div>
+      </div>
+
+      <!-- Duplicate items for seamless looping -->
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“The single best chocolate ice cream in the city. Incredible texture!”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Radhika M.</span>
+        </div>
+      </div>
+
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“Building a custom scoop online is so fun! The children love the mango combo.”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Sameer S.</span>
+        </div>
+      </div>
+
+      <div class="glass px-8 py-6 rounded-2xl flex items-center gap-4 max-w-sm shrink-0 border border-cocoa/5 shadow-sm">
+        <span class="text-3xl text-accent">“</span>
+        <div>
+          <p class="text-sm text-cocoa/80 italic font-medium">“Truffle Cocoa Reserve is a literal masterpiece. Tastes incredibly expensive!”</p>
+          <span class="text-xs font-black text-cocoa uppercase tracking-wider mt-2 block">— Vikram K.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-cocoa text-cream py-16 relative z-10 border-t border-cream/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
+      
+      <!-- Footer Logo & Info -->
+      <div class="md:col-span-4 flex flex-col gap-4">
+        <a href="index.html" class="flex items-center gap-2 group w-max">
+          <svg class="w-8 h-8 text-accent fill-current transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V20c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+            <circle cx="12" cy="9" r="2"/>
+          </svg>
+          <span class="text-2xl font-serif font-black tracking-tight text-cream">Frostella</span>
+        </a>
+        <p class="text-sm text-cream/70 max-w-sm">Every scoop churned with love. Serving premium seasonal ice creams since 2018.</p>
+        <div class="flex gap-4 mt-2">
+          <!-- Social Icons -->
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="md:col-span-3 flex flex-col gap-4">
+        <h4 class="text-lg font-bold font-serif text-accent">Quick Links</h4>
+        <nav class="flex flex-col gap-2.5 text-sm text-cream/70">
+          <a href="index.html" class="hover:text-accent transition-colors hover-trigger">Home</a>
+          <a href="about.html" class="hover:text-accent transition-colors hover-trigger">About Us</a>
+          <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Find Parlours</a>
+          <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Contact Us</a>
+        </nav>
+      </div>
+
+      <!-- Contact details -->
+      <div class="md:col-span-3 flex flex-col gap-4 text-sm text-cream/70">
+        <h4 class="text-lg font-bold font-serif text-accent text-cream">Contact Us</h4>
+        <p class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-accent"></i> +91 7990858976</p>
+        <p class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-accent"></i> jituprajapati1555@gmail.com</p>
+        <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent"></i> Ahmedabad, Gujarat, India</p>
+      </div>
+
+      <!-- Newsletter sign-up -->
+      <div class="md:col-span-2 flex flex-col gap-4">
+        <h4 class="text-lg font-bold font-serif text-cream">Scoop Club</h4>
+        <p class="text-xs text-cream/70 leading-normal">Subscribe to get secret flavour drops and recipes.</p>
+        <form class="flex flex-col gap-2 mt-1">
+          <input type="email" placeholder="Your email" class="px-4 py-2.5 rounded-full bg-cream/10 border border-cream/20 text-cream placeholder-cream/40 text-xs focus:outline-none focus:border-accent focus:bg-cream/20 transition-all">
+          <button type="submit" class="py-2 px-4 rounded-full bg-accent text-cream text-xs font-bold hover:bg-accentHover transition-colors hover-trigger">Subscribe</button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Copyright and credit -->
+    <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-cream/5 text-center text-xs text-cream/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Frostella. All Rights Reserved.</p>
+      <p>Made with ❤️ by Antigravity Coding Agency</p>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

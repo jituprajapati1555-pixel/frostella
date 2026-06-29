@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Frostella Ice Cream</title>
+  <meta name="description" content="Discover the story behind Frostella, our organic ingredients, micro-batch churning process, and our journey from a home kitchen to beloved parlours.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF6F0',
+            cocoa: '#2A1A17',
+            pink: '#FCEBF3',
+            mango: '#FCF2D9',
+            pistachio: '#EBF5EE',
+            accent: '#FF3E6C',
+            accentHover: '#E02854',
+            darkBg: '#0F0A09',
+            gold: '#D4AF37',
+            goldLight: '#E5C583'
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-cream text-cocoa selection:bg-accent selection:text-cream relative min-h-screen">
+
+  <!-- Noise Overlay for Texture -->
+  <div class="noise-overlay fixed inset-0 opacity-[0.03]"></div>
+
+  <!-- Custom Gooey Cursor Container -->
+  <div class="custom-cursor-container">
+    <div class="cursor-dot"></div>
+  </div>
+
+  <!-- SVG Gooey Filter Definitions -->
+  <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo-filter">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 w-full z-50 glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 group hover-trigger" data-cursor-text="Home">
+        <svg class="w-8 h-8 text-accent fill-current transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V20c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+          <circle cx="12" cy="9" r="2"/>
+        </svg>
+        <span class="text-2xl font-serif font-black tracking-tight text-cocoa">Frostella</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-10 font-medium">
+        <a href="index.html" class="hover:text-accent transition-colors hover-trigger">Home</a>
+        <a href="about.html" class="text-accent hover:text-accent transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:height-[2px] after:bg-accent hover-trigger">About Us</a>
+        <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Contact</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="hidden md:block">
+        <a href="contact.html" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent text-white font-bold transition-all duration-300 hover:bg-accentHover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 hover-trigger" data-cursor-text="Find Parlours">
+          Find A Parlour
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="menu-btn" class="md:hidden flex flex-col justify-between w-6 h-5 focus:outline-none hover-trigger z-50">
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300 origin-center"></span>
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300"></span>
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300 origin-center"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Fullscreen Menu -->
+  <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-cream z-40 flex flex-col justify-center items-center gap-8 translate-y-[-100%] opacity-0 pointer-events-none transition-all">
+    <a href="index.html" class="text-4xl font-serif font-bold hover:text-accent transition-colors">Home</a>
+    <a href="about.html" class="text-4xl font-serif font-bold text-accent">About Us</a>
+    <a href="contact.html" class="text-4xl font-serif font-bold hover:text-accent transition-colors">Contact</a>
+    <a href="contact.html" class="mt-4 px-8 py-4 rounded-full bg-accent text-white text-lg font-bold shadow-md hover:bg-accentHover">Find A Parlour</a>
+  </div>
+
+  <!-- About Hero Section -->
+  <section class="pt-32 pb-20 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-pink text-accent font-bold text-xs uppercase tracking-wider mb-6 animate-pulse">
+        Our Core Philosophy
+      </span>
+      <h1 id="about-hero-headline" class="text-4xl md:text-6xl font-black font-serif text-cocoa leading-tight mb-8">
+        We Believe in Churning Natural Delights. <span class="text-accent">No Compromises. 🍨</span>
+      </h1>
+      <p class="text-lg md:text-xl text-cocoa/85 leading-relaxed max-w-2xl mx-auto reveal-item">
+        At Frostella, our dream is simple: make ice cream that makes you smile. We blend slow culinary craft with high-quality ingredients, returning authentic taste to every scoop.
+      </p>
+    </div>
+  </section>
+
+  <!-- Vertical Scrolly Timeline Section -->
+  <section class="py-24 max-w-5xl mx-auto px-6 relative z-10">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-black font-serif text-cocoa reveal-item">Our Journey</h2>
+      <p class="text-sm text-cocoa/60 mt-2 reveal-item">From a home garage batch to nationwide scooping.</p>
+    </div>
+
+    <!-- Timeline Wrapper -->
+    <div class="relative w-full">
+      <!-- Central line scrubbed with GSAP ScrollTrigger -->
+      <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[4px] bg-cocoa/10 rounded-full md:transform md:-translate-x-1/2">
+        <div id="timeline-indicator" class="w-full h-0 bg-accent rounded-full origin-top"></div>
+      </div>
+
+      <!-- Timeline Items -->
+      <div class="flex flex-col gap-20">
+        
+        <!-- Timeline Item 1 -->
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center relative w-full" data-index="1">
+          <div class="w-full md:w-1/2 md:pr-16 md:text-right pl-12 md:pl-0">
+            <span class="timeline-year text-4xl md:text-6xl font-serif font-black text-cocoa/30 block mb-2 transition-all duration-500">2018</span>
+            <h3 class="text-xl font-bold font-serif mb-2">The Garage Batch</h3>
+            <p class="text-sm text-cocoa/70">Founder Jitu Prajapati chanced upon an old hand-cranked batch freezer in his family attic, churning vanilla bean custard for neighbors.</p>
+          </div>
+          <!-- Node Dot on Line -->
+          <div class="timeline-dot absolute left-[10px] md:left-1/2 w-4 h-4 rounded-full bg-cream border-4 border-cocoa/30 md:-translate-x-1/2 transition-colors duration-500 z-10"></div>
+          <div class="w-full md:w-1/2 md:pl-16 hidden md:block"></div>
+        </div>
+
+        <!-- Timeline Item 2 -->
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center relative w-full" data-index="2">
+          <div class="w-full md:w-1/2 hidden md:block"></div>
+          <!-- Node Dot on Line -->
+          <div class="timeline-dot absolute left-[10px] md:left-1/2 w-4 h-4 rounded-full bg-cream border-4 border-cocoa/30 md:-translate-x-1/2 transition-colors duration-500 z-10"></div>
+          <div class="w-full md:w-1/2 pl-12 md:pl-16">
+            <span class="timeline-year text-4xl md:text-6xl font-serif font-black text-cocoa/30 block mb-2 transition-all duration-500">2020</span>
+            <h3 class="text-xl font-bold font-serif mb-2">The First Brick & Mortar</h3>
+            <p class="text-sm text-cocoa/70">We opened our tiny pastel parlour in the heart of Ahmedabad, quickly drawing lines around the block for our fresh Mango Alphonso.</p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 3 -->
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center relative w-full" data-index="3">
+          <div class="w-full md:w-1/2 md:pr-16 md:text-right pl-12 md:pl-0">
+            <span class="timeline-year text-4xl md:text-6xl font-serif font-black text-cocoa/30 block mb-2 transition-all duration-500">2023</span>
+            <h3 class="text-xl font-bold font-serif mb-2">Organic Farms Alliance</h3>
+            <p class="text-sm text-cocoa/70">To scale production without losing quality, we secured direct partnerships with organic pasture-based milk farms in Gujarat.</p>
+          </div>
+          <!-- Node Dot on Line -->
+          <div class="timeline-dot absolute left-[10px] md:left-1/2 w-4 h-4 rounded-full bg-cream border-4 border-cocoa/30 md:-translate-x-1/2 transition-colors duration-500 z-10"></div>
+          <div class="w-full md:w-1/2 md:pl-16 hidden md:block"></div>
+        </div>
+
+        <!-- Timeline Item 4 -->
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center relative w-full" data-index="4">
+          <div class="w-full md:w-1/2 hidden md:block"></div>
+          <!-- Node Dot on Line -->
+          <div class="timeline-dot absolute left-[10px] md:left-1/2 w-4 h-4 rounded-full bg-cream border-4 border-cocoa/30 md:-translate-x-1/2 transition-colors duration-500 z-10"></div>
+          <div class="w-full md:w-1/2 pl-12 md:pl-16">
+            <span class="timeline-year text-4xl md:text-6xl font-serif font-black text-cocoa/30 block mb-2 transition-all duration-500">2026</span>
+            <h3 class="text-xl font-bold font-serif mb-2">The Interactive Future</h3>
+            <p class="text-sm text-cocoa/70">Frostella expands to major hubs (Mumbai, Delhi, Bangalore) introducing custom "Interactive Vibe Labs" for tailored guest creation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Ingredients Stats Section -->
+  <section class="py-20 bg-pink relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      
+      <!-- Stat 1 -->
+      <div class="flex flex-col items-center">
+        <span class="text-4xl md:text-6xl font-black font-serif text-accent mb-2 stat-counter" data-target="50">0</span>
+        <span class="text-xs md:text-sm font-bold text-cocoa/60 uppercase tracking-widest">Gourmet Flavours</span>
+      </div>
+
+      <!-- Stat 2 -->
+      <div class="flex flex-col items-center">
+        <span class="text-4xl md:text-6xl font-black font-serif text-accent mb-2 stat-counter" data-target="12">0</span>
+        <span class="text-xs md:text-sm font-bold text-cocoa/60 uppercase tracking-widest">Active Cities</span>
+      </div>
+
+      <!-- Stat 3 -->
+      <div class="flex flex-col items-center">
+        <span class="text-4xl md:text-6xl font-black font-serif text-accent mb-2 stat-counter" data-target="0">0</span>
+        <span class="text-xs md:text-sm font-bold text-cocoa/60 uppercase tracking-widest">Preservatives %</span>
+      </div>
+
+      <!-- Stat 4 -->
+      <div class="flex flex-col items-center">
+        <span class="text-4xl md:text-6xl font-black font-serif text-accent mb-2 stat-counter" data-target="100">0</span>
+        <span class="text-xs md:text-sm font-bold text-cocoa/60 uppercase tracking-widest">k+ Happy Smiles</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Churning Process / Method Cards -->
+  <section class="py-24 max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-xs font-bold text-accent tracking-widest uppercase">Inside the Churn</span>
+      <h2 class="text-3xl md:text-4xl font-black font-serif text-cocoa mt-2 reveal-item">How We Craft Magic</h2>
+      <p class="text-sm text-cocoa/70 mt-2 reveal-item">Our rigorous 4-step churning process ensures unmatched density and scoopability.</p>
+    </div>
+
+    <!-- Process Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="process-card p-8 rounded-3xl bg-white border border-cocoa/5 shadow-sm group hover:bg-cocoa hover:text-cream transition-all duration-500 hover-trigger">
+        <span class="text-3xl block mb-6 group-hover:scale-110 transition-transform">🐄</span>
+        <h3 class="text-xl font-bold font-serif mb-3">01. Milk Pasteurization</h3>
+        <p class="text-xs text-cocoa/70 group-hover:text-cream/80 leading-relaxed">Raw milk from our partner farms is heated mildly to lock in fresh flavors without depleting crucial enzymes.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="process-card p-8 rounded-3xl bg-white border border-cocoa/5 shadow-sm group hover:bg-cocoa hover:text-cream transition-all duration-500 hover-trigger">
+        <span class="text-3xl block mb-6 group-hover:scale-110 transition-transform">⏳</span>
+        <h3 class="text-xl font-bold font-serif mb-3">02. The Aging Lock</h3>
+        <p class="text-xs text-cocoa/70 group-hover:text-cream/80 leading-relaxed">The milk base is aged at 4°C for 24 hours, letting milk fat crystals fully bind for a velvety texture.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="process-card p-8 rounded-3xl bg-white border border-cocoa/5 shadow-sm group hover:bg-cocoa hover:text-cream transition-all duration-500 hover-trigger">
+        <span class="text-3xl block mb-6 group-hover:scale-115 transition-transform">🌀</span>
+        <h3 class="text-xl font-bold font-serif mb-3">03. Slow Micro-Churning</h3>
+        <p class="text-xs text-cocoa/70 group-hover:text-cream/80 leading-relaxed">We churn slowly in batch freezers to limit overrun (trapped air), creating ultra-dense, flavorful ice cream.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="process-card p-8 rounded-3xl bg-white border border-cocoa/5 shadow-sm group hover:bg-cocoa hover:text-cream transition-all duration-500 hover-trigger">
+        <span class="text-3xl block mb-6 group-hover:scale-110 transition-transform">❄️</span>
+        <h3 class="text-xl font-bold font-serif mb-3">04. Blast Hardening</h3>
+        <p class="text-xs text-cocoa/70 group-hover:text-cream/80 leading-relaxed">Within 2 minutes of churning, tubs are shock-frozen at -35°C, preventing large ice crystals from forming.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Founder Note & Quote Section -->
+  <section class="py-24 bg-mango/30 relative z-10 overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+      <!-- Founder Image -->
+      <div class="w-48 h-48 rounded-full border-4 border-white shadow-lg overflow-hidden shrink-0">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" alt="Jitu Prajapati, Founder" class="w-full h-full object-cover">
+      </div>
+      <!-- Pull Quote -->
+      <div>
+        <span class="text-5xl text-accent font-serif font-black block leading-[0.3]">“</span>
+        <blockquote class="text-xl md:text-2xl font-serif font-black text-cocoa leading-relaxed italic mb-4">
+          Ice cream isn't just a treat; it's a sensory gateway to childhood happiness. We don't cut corners—if a flavor needs Madagascar beans, we source Madagascar beans.
+        </blockquote>
+        <span class="text-sm font-bold text-accent uppercase tracking-widest">— Jitu Prajapati, Founder</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parlour Gallery Grid with Lightbox -->
+  <section class="py-24 max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-black font-serif text-cocoa reveal-item">Our Parlours</h2>
+      <p class="text-sm text-cocoa/70 mt-2 reveal-item">Step into a world of pastel joy. Experience Frostella in Ahmedabad, Mumbai, and Delhi.</p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="gallery-item overflow-hidden rounded-2xl aspect-[4/3] group relative hover-trigger shadow-sm cursor-zoom-in" data-cursor-text="View">
+        <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=800&auto=format&fit=crop" alt="Chic Parlour Interior" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="gallery-item overflow-hidden rounded-2xl aspect-[4/3] group relative hover-trigger shadow-sm cursor-zoom-in" data-cursor-text="View">
+        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=800&auto=format&fit=crop" alt="Premium Parlour Counter" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="gallery-item overflow-hidden rounded-2xl aspect-[4/3] group relative hover-trigger shadow-sm cursor-zoom-in" data-cursor-text="View">
+        <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?q=80&w=800&auto=format&fit=crop" alt="Pastel Store Facade" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="gallery-item overflow-hidden rounded-2xl aspect-[4/3] group relative hover-trigger shadow-sm cursor-zoom-in" data-cursor-text="View">
+        <img src="https://images.unsplash.com/photo-1505394033343-e3a5219bf8d7?q=80&w=800&auto=format&fit=crop" alt="Aesthetic Dining Area" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="gallery-item overflow-hidden rounded-2xl aspect-[4/3] group relative hover-trigger shadow-sm cursor-zoom-in" data-cursor-text="View">
+        <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800&auto=format&fit=crop" alt="Cozy Corner Seating" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="gallery-item overflow-hidden rounded-2xl aspect-[4/3] group relative hover-trigger shadow-sm cursor-zoom-in" data-cursor-text="View">
+        <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=800&auto=format&fit=crop" alt="Pastel Neon Signage" class="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-500">
+      </div>
+    </div>
+  </section>
+
+  <!-- Fullscreen Modal Lightbox (Hidden Initially) -->
+  <div id="gallery-lightbox" class="fixed inset-0 w-full h-screen bg-[#0f0a09]/95 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-all duration-500">
+    <button id="lightbox-close" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-cream/10 hover:bg-cream/20 text-cream flex items-center justify-center hover-trigger focus:outline-none">
+      <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <div class="max-w-[85%] max-h-[80%] overflow-hidden rounded-2xl">
+      <img id="lightbox-image" src="" alt="Fullscreen Parlour View" class="w-full h-full object-contain">
+    </div>
+  </div>
+
+  <!-- Find Nearest Store CTA -->
+  <section class="py-16 text-center bg-cream relative z-10 border-t border-cocoa/10">
+    <h3 class="text-2xl font-black font-serif text-cocoa mb-4">Want to experience it live?</h3>
+    <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-cream font-bold hover:bg-accentHover shadow-md hover:scale-105 active:scale-95 transition-all hover-trigger">
+      Locate Parlour
+      <i data-lucide="map-pin" class="w-4 h-4"></i>
+    </a>
+  </section>
+
+  <!-- Footer (Same as index.html) -->
+  <footer class="bg-cocoa text-cream py-16 relative z-10 border-t border-cream/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
+      <div class="md:col-span-4 flex flex-col gap-4">
+        <a href="index.html" class="flex items-center gap-2 group w-max">
+          <svg class="w-8 h-8 text-accent fill-current transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V20c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+            <circle cx="12" cy="9" r="2"/>
+          </svg>
+          <span class="text-2xl font-serif font-black tracking-tight text-cream">Frostella</span>
+        </a>
+        <p class="text-sm text-cream/70 max-w-sm">Every scoop churned with love. Serving premium seasonal ice creams since 2018.</p>
+        <div class="flex gap-4 mt-2">
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+      <div class="md:col-span-3 flex flex-col gap-4">
+        <h4 class="text-lg font-bold font-serif text-accent">Quick Links</h4>
+        <nav class="flex flex-col gap-2.5 text-sm text-cream/70">
+          <a href="index.html" class="hover:text-accent transition-colors hover-trigger">Home</a>
+          <a href="about.html" class="hover:text-accent transition-colors hover-trigger">About Us</a>
+          <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Find Parlours</a>
+          <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Contact Us</a>
+        </nav>
+      </div>
+      <div class="md:col-span-3 flex flex-col gap-4 text-sm text-cream/70">
+        <h4 class="text-lg font-bold font-serif text-accent text-cream">Contact Us</h4>
+        <p class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-accent"></i> +91 7990858976</p>
+        <p class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-accent"></i> jituprajapati1555@gmail.com</p>
+        <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent"></i> Ahmedabad, Gujarat, India</p>
+      </div>
+      <div class="md:col-span-2 flex flex-col gap-4">
+        <h4 class="text-lg font-bold font-serif text-cream">Scoop Club</h4>
+        <p class="text-xs text-cream/70 leading-normal">Subscribe to get secret flavour drops and recipes.</p>
+        <form class="flex flex-col gap-2 mt-1">
+          <input type="email" placeholder="Your email" class="px-4 py-2.5 rounded-full bg-cream/10 border border-cream/20 text-cream placeholder-cream/40 text-xs focus:outline-none focus:border-accent focus:bg-cream/20 transition-all">
+          <button type="submit" class="py-2 px-4 rounded-full bg-accent text-cream text-xs font-bold hover:bg-accentHover transition-colors hover-trigger">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-cream/5 text-center text-xs text-cream/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Frostella. All Rights Reserved.</p>
+      <p>Made with ❤️ by Antigravity Coding Agency</p>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="js/main.js"></script>
+  <script src="js/about.js"></script>
+</body>
+</html>

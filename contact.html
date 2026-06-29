@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Frostella Ice Cream</title>
+  <meta name="description" content="Reach out to Frostella, locate our nearest parlour, or send us a message. Find store hours and FAQ about our organic ice creams.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF6F0',
+            cocoa: '#2A1A17',
+            pink: '#FCEBF3',
+            mango: '#FCF2D9',
+            pistachio: '#EBF5EE',
+            accent: '#FF3E6C',
+            accentHover: '#E02854',
+            darkBg: '#0F0A09',
+            gold: '#D4AF37',
+            goldLight: '#E5C583'
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-cream text-cocoa selection:bg-accent selection:text-cream relative min-h-screen">
+
+  <!-- Noise Overlay for Texture -->
+  <div class="noise-overlay fixed inset-0 opacity-[0.03]"></div>
+
+  <!-- Custom Gooey Cursor Container -->
+  <div class="custom-cursor-container">
+    <div class="cursor-dot"></div>
+  </div>
+
+  <!-- SVG Gooey Filter Definitions -->
+  <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo-filter">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 w-full z-50 glass transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2 group hover-trigger" data-cursor-text="Home">
+        <svg class="w-8 h-8 text-accent fill-current transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V20c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+          <circle cx="12" cy="9" r="2"/>
+        </svg>
+        <span class="text-2xl font-serif font-black tracking-tight text-cocoa">Frostella</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center gap-10 font-medium">
+        <a href="index.html" class="hover:text-accent transition-colors hover-trigger">Home</a>
+        <a href="about.html" class="hover:text-accent transition-colors hover-trigger">About Us</a>
+        <a href="contact.html" class="text-accent hover:text-accent transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:height-[2px] after:bg-accent hover-trigger">Contact</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="hidden md:block">
+        <a href="contact.html" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-accent text-white font-bold transition-all duration-300 hover:bg-accentHover shadow-md hover:shadow-lg hover:scale-105 active:scale-95 hover-trigger" data-cursor-text="Find Parlours">
+          Find A Parlour
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="menu-btn" class="md:hidden flex flex-col justify-between w-6 h-5 focus:outline-none hover-trigger z-50">
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300 origin-center"></span>
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300"></span>
+        <span class="menu-line w-full h-[2px] bg-cocoa transition-all duration-300 origin-center"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Fullscreen Menu -->
+  <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-cream z-40 flex flex-col justify-center items-center gap-8 translate-y-[-100%] opacity-0 pointer-events-none transition-all">
+    <a href="index.html" class="text-4xl font-serif font-bold hover:text-accent transition-colors">Home</a>
+    <a href="about.html" class="text-4xl font-serif font-bold hover:text-accent transition-colors">About Us</a>
+    <a href="contact.html" class="text-4xl font-serif font-bold text-accent">Contact</a>
+    <a href="contact.html" class="mt-4 px-8 py-4 rounded-full bg-accent text-white text-lg font-bold shadow-md hover:bg-accentHover">Find A Parlour</a>
+  </div>
+
+  <!-- Contact Hero -->
+  <section class="pt-32 pb-16 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-pink text-accent font-bold text-xs uppercase tracking-wider mb-6 animate-pulse">
+        Connect & Visit
+      </span>
+      <h1 id="contact-hero-headline" class="text-4xl md:text-6xl font-black font-serif text-cocoa leading-tight">
+        Let's Share The <span class="text-accent">Sweetness. 🍦</span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- Form & Contact Details Grid -->
+  <section class="py-12 max-w-7xl mx-auto px-6 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <!-- Contact Form (Left) -->
+      <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-cocoa/5 shadow-md">
+        <h2 class="text-2xl font-serif font-black mb-6">Drop Us a Message</h2>
+        
+        <form action="https://formspree.io/f/placeholder" method="POST" class="flex flex-col gap-6">
+          
+          <!-- Name Input -->
+          <div class="floating-label-group">
+            <input type="text" id="form-name" name="name" required placeholder=" " 
+                   class="w-full px-5 py-4 border-2 border-cocoa/10 rounded-2xl focus:outline-none focus:border-accent text-sm transition-colors duration-300">
+            <label for="form-name" class="absolute left-5 top-1/2 -translate-y-1/2 text-cocoa/40 text-sm font-medium transition-all pointer-events-none duration-300">Your Name</label>
+          </div>
+
+          <!-- Email Input -->
+          <div class="floating-label-group">
+            <input type="email" id="form-email" name="email" required placeholder=" " 
+                   class="w-full px-5 py-4 border-2 border-cocoa/10 rounded-2xl focus:outline-none focus:border-accent text-sm transition-colors duration-300">
+            <label for="form-email" class="absolute left-5 top-1/2 -translate-y-1/2 text-cocoa/40 text-sm font-medium transition-all pointer-events-none duration-300">Email Address</label>
+          </div>
+
+          <!-- Message Textarea -->
+          <div class="floating-label-group">
+            <textarea id="form-message" name="message" rows="5" required placeholder=" " 
+                      class="w-full px-5 py-4 border-2 border-cocoa/10 rounded-2xl focus:outline-none focus:border-accent text-sm transition-colors duration-300 resize-none"></textarea>
+            <label for="form-message" class="absolute left-5 top-6 text-cocoa/40 text-sm font-medium transition-all pointer-events-none duration-300">How can we help you?</label>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-full bg-accent text-white font-bold shadow-lg hover:bg-accentHover hover:scale-[1.01] active:scale-95 transition-all duration-300 hover-trigger" data-cursor-text="Submit Form">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Info Card (Right) -->
+      <div class="lg:col-span-5 flex flex-col gap-6">
+        
+        <!-- Info Card -->
+        <div class="glass p-8 rounded-3xl border border-cocoa/5 shadow-md flex flex-col gap-8 flex-grow">
+          <h3 class="text-xl font-bold font-serif text-accent">Parlour Headquarters</h3>
+          
+          <div class="flex flex-col gap-5">
+            
+            <div class="flex items-start gap-4">
+              <span class="w-10 h-10 rounded-full bg-pink flex items-center justify-center text-accent shrink-0"><i data-lucide="phone" class="w-5 h-5"></i></span>
+              <div>
+                <span class="text-xs text-cocoa/50 font-bold block">Call Us</span>
+                <span class="text-sm font-bold text-cocoa">+91 7990858976</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-10 h-10 rounded-full bg-pink flex items-center justify-center text-accent shrink-0"><i data-lucide="mail" class="w-5 h-5"></i></span>
+              <div>
+                <span class="text-xs text-cocoa/50 font-bold block">Email Support</span>
+                <span class="text-sm font-bold text-cocoa">jituprajapati1555@gmail.com</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-10 h-10 rounded-full bg-pink flex items-center justify-center text-accent shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></span>
+              <div>
+                <span class="text-xs text-cocoa/50 font-bold block">Headquarters</span>
+                <span class="text-sm font-bold text-cocoa">Ahmedabad, Gujarat, India</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-10 h-10 rounded-full bg-pink flex items-center justify-center text-accent shrink-0"><i data-lucide="clock" class="w-5 h-5"></i></span>
+              <div>
+                <span class="text-xs text-cocoa/50 font-bold block">Opening Hours</span>
+                <span class="text-sm font-bold text-cocoa">Mon - Sun: 11:00 AM - 11:30 PM</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="pt-6 border-t border-cocoa/10 flex gap-4 items-center">
+            <span class="text-xs font-bold text-cocoa/60 uppercase tracking-wide">Connect:</span>
+            <div class="flex gap-3">
+              <a href="#" class="w-8 h-8 rounded-full border border-cocoa/20 flex items-center justify-center hover:bg-accent hover:text-white hover:border-accent transition-all hover-trigger"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+              <a href="#" class="w-8 h-8 rounded-full border border-cocoa/20 flex items-center justify-center hover:bg-accent hover:text-white hover:border-accent transition-all hover-trigger"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+              <a href="#" class="w-8 h-8 rounded-full border border-cocoa/20 flex items-center justify-center hover:bg-accent hover:text-white hover:border-accent transition-all hover-trigger"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Store Locator Section -->
+  <section class="py-24 bg-pink/20 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="text-xs font-bold text-accent tracking-widest uppercase">Our Locations</span>
+          <h2 class="text-3xl md:text-4xl font-black font-serif text-cocoa mt-2">Find a Frostella Parlour</h2>
+        </div>
+        
+        <!-- Filter Dropdown -->
+        <div class="w-full md:w-72 shrink-0">
+          <label for="locator-select" class="block text-xs font-bold text-cocoa/60 uppercase tracking-widest mb-2">Filter City</label>
+          <div class="relative">
+            <select id="locator-select" class="w-full px-5 py-3 border-2 border-cocoa/10 bg-white rounded-2xl focus:outline-none focus:border-accent text-sm font-bold text-cocoa hover-trigger">
+              <option value="all">All Locations</option>
+              <option value="ahmedabad">Ahmedabad</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="delhi">Delhi</option>
+            </select>
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-cocoa/40"><i data-lucide="chevron-down" class="w-5 h-5"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split Cards list and styled Iframe Map -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Address List Cards (Left) -->
+        <div class="lg:col-span-5 flex flex-col gap-4 overflow-y-auto max-h-[450px] pr-2" id="store-list-container">
+          
+          <!-- Ahmedabad Store Card -->
+          <div class="store-card glass p-6 rounded-2xl border border-cocoa/5 shadow-sm hover:scale-[1.01] transition-transform duration-300 cursor-pointer select-none hover-trigger" data-city="ahmedabad" data-lat="23.0225" data-lng="72.5714">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-lg font-bold font-serif text-cocoa">CG Road Parlour</h3>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#EBF5EE] text-[#2E7D32] font-semibold">Open</span>
+            </div>
+            <p class="text-xs text-cocoa/75 flex gap-2 items-start mb-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent shrink-0"></i> CG Road, Opp Municipal Market, Ahmedabad, Gujarat</p>
+            <p class="text-xs text-cocoa/70 flex gap-2 items-center"><i data-lucide="phone" class="w-4 h-4 text-cocoa/40"></i> +91 7990858976</p>
+          </div>
+
+          <!-- Mumbai Store Card -->
+          <div class="store-card glass p-6 rounded-2xl border border-cocoa/5 shadow-sm hover:scale-[1.01] transition-transform duration-300 cursor-pointer select-none hover-trigger" data-city="mumbai" data-lat="18.9440" data-lng="72.8223">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-lg font-bold font-serif text-cocoa">Bandra West</h3>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#EBF5EE] text-[#2E7D32] font-semibold">Open</span>
+            </div>
+            <p class="text-xs text-cocoa/75 flex gap-2 items-start mb-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent shrink-0"></i> Carter Road, Bandra West, Mumbai, Maharashtra</p>
+            <p class="text-xs text-cocoa/70 flex gap-2 items-center"><i data-lucide="phone" class="w-4 h-4 text-cocoa/40"></i> +91 7990858977</p>
+          </div>
+
+          <!-- Delhi Store Card -->
+          <div class="store-card glass p-6 rounded-2xl border border-cocoa/5 shadow-sm hover:scale-[1.01] transition-transform duration-300 cursor-pointer select-none hover-trigger" data-city="delhi" data-lat="28.6304" data-lng="77.2177">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-lg font-bold font-serif text-cocoa">Connaught Place</h3>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#EBF5EE] text-[#2E7D32] font-semibold">Open</span>
+            </div>
+            <p class="text-xs text-cocoa/75 flex gap-2 items-start mb-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent shrink-0"></i> E-Block, Inner Circle, Connaught Place, New Delhi</p>
+            <p class="text-xs text-cocoa/70 flex gap-2 items-center"><i data-lucide="phone" class="w-4 h-4 text-cocoa/40"></i> +91 7990858978</p>
+          </div>
+
+        </div>
+
+        <!-- Styled Iframe Map (Right) -->
+        <div class="lg:col-span-7 h-[450px] rounded-3xl overflow-hidden shadow-lg border-2 border-cocoa/10 relative">
+          <!-- We apply warm sepia styling using CSS filter to make Google Maps match our design system -->
+          <iframe id="locator-map" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117510.98595304381!2d72.43962657788487!3d23.020243689408546!2m3!1f0!2f0!3f0!3m2!1i1024!2i769!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fccd11d08777002!2sC%20G%20Road%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                  class="w-full h-full border-0 grayscale invert-[0.03] sepia-[0.2] contrast-[0.98]" 
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="py-24 max-w-4xl mx-auto px-6 relative z-10">
+    <div class="text-center mb-16">
+      <span class="text-xs font-bold text-accent tracking-widest uppercase">Answers</span>
+      <h2 class="text-3xl md:text-4xl font-black font-serif text-cocoa mt-2">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      
+      <!-- FAQ 1 -->
+      <div class="faq-item bg-white border border-cocoa/5 rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left font-bold text-cocoa hover:text-accent transition-colors focus:outline-none hover-trigger">
+          <span class="text-sm md:text-base font-serif">Do you offer vegan/dairy-free flavours?</span>
+          <span class="faq-icon-wrapper text-cocoa/40 transition-transform duration-300"><i data-lucide="plus" class="w-5 h-5"></i></span>
+        </button>
+        <div class="faq-content h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="px-6 pb-6 text-xs md:text-sm text-cocoa/70 leading-relaxed">
+            Yes! We offer a rotation of organic oat-milk based and coconut-cream based vegan scoops, along with fresh water-based sorbets (e.g. Raspberry Lime). Look for the 🌱 icon on our flavour cards.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item bg-white border border-cocoa/5 rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left font-bold text-cocoa hover:text-accent transition-colors focus:outline-none hover-trigger">
+          <span class="text-sm md:text-base font-serif">Are your ingredients truly 100% organic?</span>
+          <span class="faq-icon-wrapper text-cocoa/40 transition-transform duration-300"><i data-lucide="plus" class="w-5 h-5"></i></span>
+        </button>
+        <div class="faq-content h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="px-6 pb-6 text-xs md:text-sm text-cocoa/70 leading-relaxed">
+            Absolutely. We source organic, grass-fed certified A2 milk and cream from our partner farm cooperatives. We never use artificial emulsifiers, high-fructose corn syrups, or chemical colors.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item bg-white border border-cocoa/5 rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left font-bold text-cocoa hover:text-accent transition-colors focus:outline-none hover-trigger">
+          <span class="text-sm md:text-base font-serif">Can I host a custom party event?</span>
+          <span class="faq-icon-wrapper text-cocoa/40 transition-transform duration-300"><i data-lucide="plus" class="w-5 h-5"></i></span>
+        </button>
+        <div class="faq-content h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="px-6 pb-6 text-xs md:text-sm text-cocoa/70 leading-relaxed">
+            We offer our customizable Frostella Vibe Bar catering services for birthdays, corporate gatherings, and weddings. Our team brings portable churning carts and custom topping arrays. Reach out via the form above!
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item bg-white border border-cocoa/5 rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left font-bold text-cocoa hover:text-accent transition-colors focus:outline-none hover-trigger">
+          <span class="text-sm md:text-base font-serif">Do you deliver to home addresses?</span>
+          <span class="faq-icon-wrapper text-cocoa/40 transition-transform duration-300"><i data-lucide="plus" class="w-5 h-5"></i></span>
+        </button>
+        <div class="faq-content h-0 overflow-hidden transition-all duration-500 ease-in-out">
+          <div class="px-6 pb-6 text-xs md:text-sm text-cocoa/70 leading-relaxed">
+            Yes, our signature tubs are available for delivery via Swiggy & Zomato in Ahmedabad, Mumbai, and Delhi. We pack them with dry ice to guarantee they arrive at your door in solid, perfect condition.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer (Same as index.html) -->
+  <footer class="bg-cocoa text-cream py-16 relative z-10 border-t border-cream/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
+      <div class="md:col-span-4 flex flex-col gap-4">
+        <a href="index.html" class="flex items-center gap-2 group w-max">
+          <svg class="w-8 h-8 text-accent fill-current transition-transform duration-500 group-hover:rotate-12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V20c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+            <circle cx="12" cy="9" r="2"/>
+          </svg>
+          <span class="text-2xl font-serif font-black tracking-tight text-cream">Frostella</span>
+        </a>
+        <p class="text-sm text-cream/70 max-w-sm">Every scoop churned with love. Serving premium seasonal ice creams since 2018.</p>
+        <div class="flex gap-4 mt-2">
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+          <a href="#" class="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-115 transition-all hover-trigger"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+      <div class="md:col-span-3 flex flex-col gap-4">
+        <h4 class="text-lg font-bold font-serif text-accent">Quick Links</h4>
+        <nav class="flex flex-col gap-2.5 text-sm text-cream/70">
+          <a href="index.html" class="hover:text-accent transition-colors hover-trigger">Home</a>
+          <a href="about.html" class="hover:text-accent transition-colors hover-trigger">About Us</a>
+          <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Find Parlours</a>
+          <a href="contact.html" class="hover:text-accent transition-colors hover-trigger">Contact Us</a>
+        </nav>
+      </div>
+      <div class="md:col-span-3 flex flex-col gap-4 text-sm text-cream/70">
+        <h4 class="text-lg font-bold font-serif text-accent text-cream">Contact Us</h4>
+        <p class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-accent"></i> +91 7990858976</p>
+        <p class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-accent"></i> jituprajapati1555@gmail.com</p>
+        <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent"></i> Ahmedabad, Gujarat, India</p>
+      </div>
+      <div class="md:col-span-2 flex flex-col gap-4">
+        <h4 class="text-lg font-bold font-serif text-cream">Scoop Club</h4>
+        <p class="text-xs text-cream/70 leading-normal">Subscribe to get secret flavour drops and recipes.</p>
+        <form class="flex flex-col gap-2 mt-1">
+          <input type="email" placeholder="Your email" class="px-4 py-2.5 rounded-full bg-cream/10 border border-cream/20 text-cream placeholder-cream/40 text-xs focus:outline-none focus:border-accent focus:bg-cream/20 transition-all">
+          <button type="submit" class="py-2 px-4 rounded-full bg-accent text-cream text-xs font-bold hover:bg-accentHover transition-colors hover-trigger">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-cream/5 text-center text-xs text-cream/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Frostella. All Rights Reserved.</p>
+      <p>Made with ❤️ by Antigravity Coding Agency</p>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>
