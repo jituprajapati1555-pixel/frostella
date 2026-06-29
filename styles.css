@@ -1,0 +1,307 @@
+/* Custom Fonts & Styling Foundation */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --color-cream: #FAF6F0;
+  --color-cocoa: #2A1A17;
+  --color-pink: #FCEBF3;
+  --color-mango: #FCF2D9;
+  --color-pistachio: #EBF5EE;
+  --color-accent: #FF3E6C;
+  --color-accent-hover: #E02854;
+  --color-dark-bg: #0F0A09;
+  --color-gold: #D4AF37;
+  --color-gold-light: #E5C583;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-cocoa);
+  border: 2px solid var(--color-cream);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-cocoa);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: 'Fraunces', serif;
+}
+
+/* Custom Cursor Rules (only on desktop/hoverable screens) */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, select, input, textarea, label, [role="button"] {
+    cursor: none !important;
+  }
+  .custom-cursor-container {
+    display: block;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor-container {
+    display: none !important;
+  }
+}
+
+.custom-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  filter: url('#goo-filter');
+}
+
+.cursor-dot {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              height 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+              background-color 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-cream);
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.cursor-dot.hovered {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-cocoa);
+}
+
+.cursor-dot.accent-hover {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-accent);
+}
+
+.cursor-trail-drop {
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: drip-fade 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.cursor-trail-drop.hovered {
+  background-color: var(--color-cocoa);
+}
+
+@keyframes drip-fade {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, calc(-50% + 40px)) scale(0.1);
+    opacity: 0;
+  }
+}
+
+/* Lenis Integration styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Film Grain Overlay */
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floating Sparkle/Star animation */
+@keyframes sparkle {
+  0%, 100% { transform: scale(0.3) rotate(0deg); opacity: 0.1; }
+  50% { transform: scale(1.1) rotate(180deg); opacity: 0.9; }
+}
+
+.sparkle-element {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+/* Smooth active state transitions */
+.transition-slow {
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Custom Clip Path transitions for the Hero morph */
+.melt-clip-path {
+  clip-path: url(#melt-mask);
+}
+
+/* Glassmorphism Classes */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-dark {
+  background: rgba(15, 10, 9, 0.7);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Marquee Scrolling animation */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Form Styles for Floating Labels */
+.floating-label-group {
+  position: relative;
+}
+
+.floating-label-group input:focus ~ label,
+.floating-label-group input:not(:placeholder-shown) ~ label,
+.floating-label-group textarea:focus ~ label,
+.floating-label-group textarea:not(:placeholder-shown) ~ label {
+  top: -8px;
+  left: 12px;
+  font-size: 11px;
+  background-color: var(--color-cream);
+  padding: 0 6px;
+  color: var(--color-accent);
+}
+
+.dark .floating-label-group input:focus ~ label,
+.dark .floating-label-group input:not(:placeholder-shown) ~ label {
+  background-color: var(--color-dark-bg);
+}
+
+/* Custom styles for the interactive Build your scoop widget */
+.ice-cream-scoop {
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sprinkle-particle {
+  position: absolute;
+  width: 4px;
+  height: 10px;
+  border-radius: 5px;
+  pointer-events: none;
+  animation: fall-and-spin 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.chip-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 35% 65% 55% 45% / 45% 55% 35% 65%;
+  pointer-events: none;
+  animation: fall-and-spin 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.berry-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fall-and-spin 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fall-and-spin {
+  0% {
+    transform: translateY(-100px) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-50px) rotate(90deg) scale(1.2);
+  }
+  100% {
+    transform: translateY(var(--fall-y, 80px)) translateX(var(--fall-x, 0px)) rotate(var(--fall-rotate, 360deg)) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Interactive Bento card grid */
+.bento-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.bento-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(42, 26, 23, 0) 40%, rgba(42, 26, 23, 0.4) 100%);
+  pointer-events: none;
+}
+
+/* Custom GSAP scroll reveal presets */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+}
