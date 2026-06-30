@@ -602,6 +602,38 @@ function resetScoop() {
   activeLayer = 1;
 }
 
+
+  // Example wiring — adjust selector to match your actual flavour buttons
+document.querySelector('[data-flavour="vanilla"]')?.addEventListener('click', () => {
+  showScoop();
+  setScoopFlavour('flavour-vanilla');
+});
+document.querySelector('[data-flavour="chocolate"]')?.addEventListener('click', () => {
+  showScoop();
+  setScoopFlavour('flavour-chocolate');
+});
+document.querySelector('[data-flavour="strawberry"]')?.addEventListener('click', () => {
+  showScoop();
+  setScoopFlavour('flavour-strawberry');
+});
+document.querySelector('[data-flavour="mango"]')?.addEventListener('click', () => {
+  showScoop();
+  setScoopFlavour('flavour-mango');
+});
+
+// Example for toppings step
+document.querySelector('[data-topping="choco-chips"]')?.addEventListener('click', () => {
+  addTopping('🍫', 20, 50);
+});
+document.querySelector('[data-topping="sprinkles"]')?.addEventListener('click', () => {
+  addTopping('✨', 15, 30);
+});
+
+// Example for sauce step
+document.querySelector('[data-sauce="caramel"]')?.addEventListener('click', () => {
+  pourSauce();
+});
+
   // Reload custom cursor hovers (since new elements got generated)
   if (window.initCursorHovers) {
     window.initCursorHovers();
