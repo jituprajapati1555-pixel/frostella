@@ -536,6 +536,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Call this when the scoop should first appear (e.g. when user reaches Step 1)
+function showScoop() {
+  const container = document.getElementById('visual-scoop-container');
+  if (!container) return;
+  container.classList.remove('scale-0');
+  container.classList.add('scale-100', 'is-active');
+}
+
+// Call this whenever user selects/changes a flavour
+// flavourClass should be one of: 'flavour-vanilla', 'flavour-chocolate', 'flavour-strawberry', 'flavour-mango'
+let activeLayer = 1;
+function setScoopFlavour(flavourClass) {
+  const layer1 = document.getElementById('scoop-layer-1');
+  const layer2 = document.getElementById('scoop-layer-2');
+  if (!layer1 || !layer2) return;
+
+  const incoming = activeLayer === 1 ? layer2 : layer1;
+  const outgoing = activeLayer === 1 ? layer1 : layer2;
+
+  // Remove old flavour classes from incoming layer first
+  incoming.classList.remove('flavour-vanilla', 'flavour-chocolate', 'flavour-strawberry', 'flavour-mango');
+  incoming.classList.add(flavourClass);
+
+  // Crossfade: fade incoming in, outgoing out
+  incoming.style.opacity = '1';
+  outgoing.style.opacity = '0';
+
+  activeLayer = activeLayer === 1 ? 2 : 1;
+}
+
+// Call this when user picks a topping (e.g. sprinkles, choco chips)
+// emoji = '🍫', topPercent/leftPercent position it on the scoop (0-100)
+function addTopping(emoji, topPercent, leftPercent) {
+  const layer = document.getElementById('visual-topping-layer');
+  if (!layer) return;
+  const item = document.createElement('span');
+  item.className = 'topping-item';
+  item.textContent = emoji;
+  item.style.top = topPercent + '%';
+  item.style.left = leftPercent + '%';
+  layer.appendChild(item);
+  requestAnimationFrame(() => item.classList.add('is-visible'));
+}
+
+// Call this when user picks a sauce
+function pourSauce() {
+  const sauce = document.getElementById('visual-sauce-layer');
+  if (!sauce) return;
+  sauce.classList.add('is-poured');
+}
+
+// Reset everything (e.g. "Back" button or restart)
+function resetScoop() {
+  const layer1 = document.getElementById('scoop-layer-1');
+  const layer2 = document.getElementById('scoop-layer-2');
+  const toppingLayer = document.getElementById('visual-topping-layer');
+  const sauce = document.getElementById('visual-sauce-layer');
+
+  if (layer1) { layer1.style.opacity = '0'; layer1.classList.remove('flavour-vanilla','flavour-chocolate','flavour-strawberry','flavour-mango'); }
+  if (layer2) { layer2.style.opacity = '0'; layer2.classList.remove('flavour-vanilla','flavour-chocolate','flavour-strawberry','flavour-mango'); }
+  if (toppingLayer) toppingLayer.innerHTML = '';
+  if (sauce) sauce.classList.remove('is-poured');
+
+  activeLayer = 1;
+}
+
   // Reload custom cursor hovers (since new elements got generated)
   if (window.initCursorHovers) {
     window.initCursorHovers();
