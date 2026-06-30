@@ -640,52 +640,68 @@ document.querySelectorAll('.flavour-select-btn').forEach(btn => {
 });
 
 // ===== Toppings (Step 2) =====
-const toppingEmojiMap = {
-  'sprinkles': '🌈',
-  'choco-chips': '🍫',
-  'fresh-berries': '🍓'
-};
-
 document.querySelectorAll('.topping-select-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const key = btn.getAttribute('data-topping');
-    const emoji = toppingEmojiMap[key];
-    if (!emoji) return;
-
+    const type = btn.getAttribute('data-type');
     const layer = document.getElementById('visual-topping-layer');
     if (!layer) return;
 
-    const item = document.createElement('span');
-    item.textContent = emoji;
-    item.style.position = 'absolute';
-    item.style.fontSize = '20px';
-    item.style.top = (10 + Math.random() * 60) + '%';
-    item.style.left = (15 + Math.random() * 60) + '%';
-    item.style.opacity = '0';
-    item.style.transform = 'scale(0) translateY(-8px)';
-    item.style.transition = 'all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    layer.appendChild(item);
+    // Highlight selected button
+    document.querySelectorAll('.topping-select-btn').forEach(b => b.classList.remove('border-accent'));
+    btn.classList.add('border-accent');
 
-    requestAnimationFrame(() => {
-      item.style.opacity = '1';
-      item.style.transform = 'scale(1) translateY(0)';
-    });
+    if (type === 'none') return; // "Keep it Clean" — no icons added
+
+    const emojiMap = {
+      'sprinkles': '🌈',
+      'chips': '🍫',
+      'berries': '🍓'
+    };
+    const emoji = emojiMap[type];
+    if (!emoji) return;
+
+    // Add 3 of the emoji scattered on the scoop for a fuller look
+    for (let i = 0; i < 3; i++) {
+      const item = document.createElement('span');
+      item.textContent = emoji;
+      item.style.position = 'absolute';
+      item.style.fontSize = '18px';
+      item.style.top = (5 + Math.random() * 55) + '%';
+      item.style.left = (10 + Math.random() * 65) + '%';
+      item.style.opacity = '0';
+      item.style.transform = 'scale(0) translateY(-8px)';
+      item.style.transition = `all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.08}s`;
+      layer.appendChild(item);
+
+      requestAnimationFrame(() => {
+        item.style.opacity = '1';
+        item.style.transform = 'scale(1) translateY(0)';
+      });
+    }
   });
 });
 
 // ===== Sauce (Step 3) =====
 document.querySelectorAll('.sauce-select-btn').forEach(btn => {
   btn.addEventListener('click', () => {
+    const color = btn.getAttribute('data-color');
     const sauce = document.getElementById('visual-sauce-layer');
     if (!sauce) return;
+
+    // Highlight selected button
+    document.querySelectorAll('.sauce-select-btn').forEach(b => b.classList.remove('border-accent'));
+    btn.classList.add('border-accent');
+
+    if (color === 'transparent') {
+      // "No Sauce" — hide it
+      sauce.style.opacity = '0';
+      sauce.style.transform = 'scaleY(0)';
+      return;
+    }
+
+    sauce.style.color = color; // SVG uses fill="currentColor" via fill-current class
     sauce.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
     sauce.style.opacity = '1';
     sauce.style.transform = 'scaleY(1)';
   });
-});
-
-  // Reload custom cursor hovers (since new elements got generated)
-  if (window.initCursorHovers) {
-    window.initCursorHovers();
-  }
 });
