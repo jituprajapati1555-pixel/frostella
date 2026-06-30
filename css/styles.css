@@ -282,6 +282,59 @@ html.lenis, html.lenis body {
   }
 }
 
+/* ===== Scoop Flavour Colors (for scoop-layer-1 & scoop-layer-2 crossfade) ===== */
+.flavour-vanilla {
+  background: radial-gradient(circle at 35% 30%, #FFF8E8 0%, #F5E6C8 55%, #E8D4A8 100%);
+}
+.flavour-chocolate {
+  background: radial-gradient(circle at 35% 30%, #7A4A36 0%, #4A2C20 55%, #2A1A17 100%);
+}
+.flavour-strawberry {
+  background: radial-gradient(circle at 35% 30%, #FFD4DE 0%, #FCA5BB 55%, #F06C8C 100%);
+}
+.flavour-mango {
+  background: radial-gradient(circle at 35% 30%, #FFE8A3 0%, #FFC94D 55%, #F2A91E 100%);
+}
+
+/* Idle wobble animation on the whole scoop, very subtle */
+#visual-scoop-container.is-active {
+  animation: scoop-wobble 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes scoop-wobble {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25%      { transform: scale(1.005) rotate(-1deg); }
+  50%      { transform: scale(1) rotate(0deg); }
+  75%      { transform: scale(1.005) rotate(1deg); }
+}
+
+/* Sauce drip-in animation */
+#visual-sauce-layer.is-poured {
+  animation: sauce-pour 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes sauce-pour {
+  0%   { opacity: 0; transform: scaleY(0); }
+  100% { opacity: 1; transform: scaleY(1); }
+}
+
+/* Topping pop-in animation */
+.topping-item {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0;
+  transform: scale(0) translateY(-8px);
+}
+.topping-item.is-visible {
+  animation: topping-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes topping-pop {
+  0%   { opacity: 0; transform: scale(0) translateY(-8px); }
+  70%  { opacity: 1; transform: scale(1.15) translateY(2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 /* Interactive Bento card grid */
 .bento-card {
   position: relative;
