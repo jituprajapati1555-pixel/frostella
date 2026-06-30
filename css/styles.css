@@ -353,6 +353,19 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+
+.scoop-wobble {
+  animation: scoop-wobble-anim 6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes scoop-wobble-anim {
+  0%, 100% { transform: scale(1) rotate(0deg) translateY(0); }
+  25%      { transform: scale(1.01) rotate(-1deg) translateY(-2px); }
+  50%      { transform: scale(1) rotate(0deg) translateY(0); }
+  75%      { transform: scale(1.01) rotate(1deg) translateY(-2px); }
+}
+
 /* Custom GSAP scroll reveal presets */
 .reveal-item {
   opacity: 0;
