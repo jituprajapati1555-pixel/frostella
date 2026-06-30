@@ -603,35 +603,85 @@ function resetScoop() {
 }
 
 
-  // Example wiring — adjust selector to match your actual flavour buttons
-document.querySelector('[data-flavour="vanilla"]')?.addEventListener('click', () => {
-  showScoop();
-  setScoopFlavour('flavour-vanilla');
-});
-document.querySelector('[data-flavour="chocolate"]')?.addEventListener('click', () => {
-  showScoop();
-  setScoopFlavour('flavour-chocolate');
-});
-document.querySelector('[data-flavour="strawberry"]')?.addEventListener('click', () => {
-  showScoop();
-  setScoopFlavour('flavour-strawberry');
-});
-document.querySelector('[data-flavour="mango"]')?.addEventListener('click', () => {
-  showScoop();
-  setScoopFlavour('flavour-mango');
+ // ===== Wire up flavour buttons to the scoop visual =====
+let activeLayer = 1;
+
+document.querySelectorAll('.flavour-select-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const colorLight = btn.getAttribute('data-color-light');
+    const colorBase  = btn.getAttribute('data-color-base');
+    const colorDark  = btn.getAttribute('data-color-dark');
+
+    // 1. Reveal the scoop (first time only, harmless to call again)
+    const scoopContainer = document.getElementById('visual-scoop-container');
+    if (scoopContainer) {
+      scoopContainer.classList.remove('scale-0');
+      scoopContainer.classList.add('scale-100', 'scoop-wobble');
+    }
+
+    // 2. Crossfade between scoop-layer-1 and scoop-layer-2
+    const layer1 = document.getElementById('scoop-layer-1');
+    const layer2 = document.getElementById('scoop-layer-2');
+    if (!layer1 || !layer2) return;
+
+    const incoming = activeLayer === 1 ? layer2 : layer1;
+    const outgoing = activeLayer === 1 ? layer1 : layer2;
+
+    incoming.style.background = `radial-gradient(circle at 35% 30%, ${colorLight} 0%, ${colorBase} 55%, ${colorDark} 100%)`;
+    incoming.style.opacity = '1';
+    outgoing.style.opacity = '0';
+
+    activeLayer = activeLayer === 1 ? 2 : 1;
+
+    // 3. Highlight selected button visually
+    document.querySelectorAll('.flavour-select-btn').forEach(b => b.classList.remove('border-accent'));
+    btn.classList.add('border-accent');
+  });
 });
 
-// Example for toppings step
-document.querySelector('[data-topping="choco-chips"]')?.addEventListener('click', () => {
-  addTopping('🍫', 20, 50);
-});
-document.querySelector('[data-topping="sprinkles"]')?.addEventListener('click', () => {
-  addTopping('✨', 15, 30);
+// ===== Toppings (Step 2) =====
+const toppingEmojiMap = {
+  'sprinkles': '🌈',
+  'choco-chips': '🍫',
+  'fresh-berries': '🍓'
+};
+
+document.querySelectorAll('.topping-select-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.getAttribute('data-topping');
+    const emoji = toppingEmojiMap[key];
+    if (!emoji) return;
+
+    const layer = document.getElementById('visual-topping-layer');
+    if (!layer) return;
+
+    const item = document.createElement('span');
+    item.textContent = emoji;
+    item.style.position = 'absolute';
+    item.style.fontSize = '20px';
+    item.style.top = (10 + Math.random() * 60) + '%';
+    item.style.left = (15 + Math.random() * 60) + '%';
+    item.style.opacity = '0';
+    item.style.transform = 'scale(0) translateY(-8px)';
+    item.style.transition = 'all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    layer.appendChild(item);
+
+    requestAnimationFrame(() => {
+      item.style.opacity = '1';
+      item.style.transform = 'scale(1) translateY(0)';
+    });
+  });
 });
 
-// Example for sauce step
-document.querySelector('[data-sauce="caramel"]')?.addEventListener('click', () => {
-  pourSauce();
+// ===== Sauce (Step 3) =====
+document.querySelectorAll('.sauce-select-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const sauce = document.getElementById('visual-sauce-layer');
+    if (!sauce) return;
+    sauce.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    sauce.style.opacity = '1';
+    sauce.style.transform = 'scaleY(1)';
+  });
 });
 
   // Reload custom cursor hovers (since new elements got generated)
